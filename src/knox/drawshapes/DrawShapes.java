@@ -28,7 +28,8 @@ public class DrawShapes extends JFrame
     private enum ShapeType {
         SQUARE,
         CIRCLE,
-        RECTANGLE
+        RECTANGLE,
+        OCTAGON
     }
     
     private DrawShapesPanel shapePanel;
@@ -88,6 +89,11 @@ public class DrawShapes extends JFrame
                                 e.getPoint(),
                                 100, 
                                 200,
+                                color));
+                    } else if (shapeType == ShapeType.OCTAGON) {
+                        scene.addShape(new Octagon(
+                                e.getPoint(),
+                                100, 
                                 color));
                     }
                     
@@ -250,13 +256,23 @@ public class DrawShapes extends JFrame
             }
         });
         
-     // blue color
+        // green color
         addToMenu(colorMenu, "Green", new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String text=e.getActionCommand();
                 System.out.println(text);
                 // change the color instance variable to blue
                 color = Color.GREEN;
+            }
+        });
+        
+        // magenta color
+        addToMenu(colorMenu, "Magenta", new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String text=e.getActionCommand();
+                System.out.println(text);
+                // change the color instance variable to blue
+                color = new Color(255, 0, 255);
             }
         });
         
@@ -279,6 +295,23 @@ public class DrawShapes extends JFrame
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Circle");
                 shapeType = ShapeType.CIRCLE;
+            }
+        });
+        
+        addToMenu(shapeMenu, "Rectangle", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Circle");
+                shapeType = ShapeType.RECTANGLE;
+            }
+        });
+        
+     // octagon
+        addToMenu(shapeMenu, "Octagon", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Octagon");
+                shapeType = ShapeType.OCTAGON;
             }
         });
         
@@ -341,6 +374,14 @@ public class DrawShapes extends JFrame
             		scene.moveSelected(-50, 0);
             	} else if (e.getKeyCode() == KeyEvent.VK_UP) {
             		scene.moveSelected(0, -50);
+            	} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            		scene.moveSelected(50, 0);
+            	} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+            		scene.moveSelected(0, 50);
+            	} else if (e.getKeyCode() == KeyEvent.VK_DELETE) {
+            		scene.removeSelected();
+            	} else if (e.getKeyCode() == KeyEvent.VK_C) {
+            		scene.colorSelected(color);
             	}
             	repaint();
             }

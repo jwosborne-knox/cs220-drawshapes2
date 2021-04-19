@@ -140,6 +140,15 @@ public class Scene implements Iterable<IShape>
     	shapeList.removeIf(s -> s.isSelected());
     }
     
+    public void colorSelected(Color c) {
+    	// lambdas are SO FREAKING COOL!
+    	// I agree, James
+    	shapeList.forEach(s -> {
+    		if(s.isSelected())
+    			s.setColor(c);
+    	});
+    }
+    
     public String toString() {
         String shapeText = "";
         for (IShape s : shapeList) {
