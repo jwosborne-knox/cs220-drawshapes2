@@ -142,9 +142,6 @@ public class DrawShapes extends JFrame
             public void mouseDragged(MouseEvent e) {
                 System.out.printf("mouse drag! (%d, %d)\n", e.getX(), e.getY());
                 scene.updateSelectRect(e.getPoint());
-                if(e.getButton() == MouseEvent.BUTTON2) {
-                	scene.moveSelected(e.getX(), e.getY());
-                }
                 repaint();
             }
 
