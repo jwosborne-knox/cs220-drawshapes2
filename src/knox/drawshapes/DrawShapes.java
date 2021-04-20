@@ -142,17 +142,27 @@ public class DrawShapes extends JFrame
             public void mouseDragged(MouseEvent e) {
                 System.out.printf("mouse drag! (%d, %d)\n", e.getX(), e.getY());
                 scene.updateSelectRect(e.getPoint());
+                if(e.getButton() == MouseEvent.BUTTON2) {
+                	scene.moveSelected(e.getX(), e.getY());
+                }
                 repaint();
             }
 
             @Override
             public void mouseWheelMoved(MouseWheelEvent e) {
-                // TODO use this to grow/shrink shapes
+            	System.out.printf("mouse spin! (%g)\n", e.getPreciseWheelRotation());
+            	if(e.getWheelRotation() > 0) {
+            		scene.scale(0.9);
+            	}else {
+            		scene.scale(1.1);
+            	}
+            	repaint();
             }
             
         };
         shapePanel.addMouseMotionListener(a);
         shapePanel.addMouseListener(a);
+        shapePanel.addMouseWheelListener(a);
     }
     
     /**
@@ -306,7 +316,7 @@ public class DrawShapes extends JFrame
             }
         });
         
-     // octagon
+        // octagon
         addToMenu(shapeMenu, "Octagon", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
